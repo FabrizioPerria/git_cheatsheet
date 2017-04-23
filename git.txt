@@ -119,4 +119,12 @@ script/get_maintainer.pl my_patch.patch
 
 git send-email --to x@y.z --cc a@b.c --chain-reply-to --in-reply-to=last_message_id patches/*
 
+GITIGNORE
+.gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder. For instance,
+if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
+files. In .gitignore we can write
+*.o
+*.out
+*.exe
+
 
