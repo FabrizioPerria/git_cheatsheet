@@ -3,6 +3,10 @@ git config --global	user.name "my_name"						configure user global settings (nam
 git config --global	user.email "user@provider.com"			configure user global settings (mail)
 git config --global core.editor "vim"						configure default text editor
 git config --global color.ui true							enable colors in git terminal
+git config --global sendemail.smtpuser x@y.z
+git config --global sendemail.smtpserver smtp.googlemail.com (for gmail)
+git config --global sendemail.smtpencryption tls
+git config --global sendemail.smtpserverport 587
 
 all the configurations are saved in the .gitconfig file in the folder where we configured the user
 
@@ -47,10 +51,12 @@ COMMIT
 Package of data and description (from where git creates a unique checksum) sent to the main repository.
 
 git commit -m "description"			send all the data contained in the staging index to the repository
+git commit -m "description" -s		sign-off the commit
 
 STATUS AND REPO INFORMATIONS
 git log								show all the commits done so far
 git log --oneline					show only the ID and the message for every commit done so far
+git log --oneline --abbrev-commit   show only part of the commit ID
 
 cat .git/refs/heads/master			show the checksum of the commit pointed by HEAD in the master branch
 
@@ -94,3 +100,23 @@ There are 3 types of reset in git:
 	git reset --soft id_commit 		moves the HEAD to the specified commit
 	git reset --mixed id_commit		moves the HEAD and the staging index to whatever they were in the specified commit
 	git reset --hard id_commit		completely reverts the commit (DANGEROUS)
+
+
+BRANCHES
+git branch				show all the branches created(* is on the current branch)
+git branch my_branch	create a branch called my_branch
+git checkout my_branch	makes my_branch the current branch in use
+
+CREATE A PATCH
+git format-patch original_branch..new_branch
+git format-patch -o patches/ -3		create a patch for each one of the last 3 commits and save 
+									them in patches folder
+
+git format-patch --subject-prefix="prefix]["  add prefix in the subject of the email-format patch
+
+SEND EMAIL
+script/get_maintainer.pl my_patch.patch
+
+git send-email --to x@y.z --cc a@b.c --chain-reply-to --in-reply-to=last_message_id patches/*
+
+
