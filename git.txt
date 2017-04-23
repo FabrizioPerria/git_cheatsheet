@@ -57,6 +57,13 @@ STATUS AND REPO INFORMATIONS
 git log								show all the commits done so far
 git log --oneline					show only the ID and the message for every commit done so far
 git log --oneline --abbrev-commit   show only part of the commit ID
+git log --oneline -3				show only the last 3 commits
+git log --since="2017-05-12"		show all the commits done after May 12th 2017
+git log --since="2 weeks ago"		show all the commits of the last 2 weeks
+git log --until="2017-05-12"		show all the commits done until May 12th 2017
+git log --author="Jack"				show all the commits done by Jack
+
+git log --oneline --graph --all --decorate		show the tree with all the branches
 
 cat .git/refs/heads/master			show the checksum of the commit pointed by HEAD in the master branch
 
