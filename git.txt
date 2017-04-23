@@ -97,9 +97,9 @@ git diff --staged is going to tell us which changes have been made to file
 
 RESET
 There are 3 types of reset in git:
-	git reset --soft id_commit 		moves the HEAD to the specified commit
-	git reset --mixed id_commit		moves the HEAD and the staging index to whatever they were in the specified commit
-	git reset --hard id_commit		completely reverts the commit (DANGEROUS)
+	git reset --soft id_commit 		moves the HEAD to the specified commit(undo a commit)
+	git reset --mixed id_commit		moves the HEAD and the staging index to whatever they were in the specified commit(undo a staging
+	git reset --hard id_commit		completely reverts the commit (DANGEROUS...undo a change in the files)
 
 
 BRANCHES
