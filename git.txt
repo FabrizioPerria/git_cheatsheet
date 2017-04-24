@@ -28,7 +28,7 @@ check-out	bring the content of a repository into a working directory
 add			bring the content of a working directory into a staging index
 commit		bring the content of a staging index into a repository
 
-branch		version sent to repository
+branch		pointer to a commit
 
 HEAD POINTER	HEAD is a pointer that points to the top of the current branch in the repository (is the last checked out state). 
 				It is going to be the parent of the next commit
@@ -91,8 +91,9 @@ git commit --amend "description"
 
 REVERT TO AN OLD COMMIT
 Receive a copy of an old version of the branch (is not going to delete the newer ones!is just a copy)
-git checkout id_of_the_commit				checkout the whole branch
+git checkout id_of_the_commit				checkout the whole commit
 git checkout id_of_the_commit -- file		checkout only the file specified at that point in time
+git checkout -b my_branch					create and switch to my_branch
 
 DIFF
 git feature to check differences between 2 versions of a file
@@ -112,7 +113,6 @@ There are 3 types of reset in git:
 BRANCHES
 git branch				show all the branches created(* is on the current branch)
 git branch my_branch	create a branch called my_branch
-git checkout my_branch	makes my_branch the current branch in use
 
 CREATE A PATCH
 git format-patch original_branch..new_branch
@@ -133,5 +133,3 @@ files. In .gitignore we can write
 *.o
 *.out
 *.exe
-
-
