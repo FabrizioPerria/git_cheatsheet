@@ -1,22 +1,23 @@
-# TERMINOLOGY
-## Repository                
+# GIT  
+## TERMINOLOGY
+### Repository                
 >*Remote (or local) location of the project; here the history of our project is stored. It can be seen as the good copy*    
-## Working Directory 	
+### Working Directory 	
 >*Location where we are allowed to make changes, experiments, weirdness; can be seen as the dirty copy*  
-## Staging Index  
+### Staging Index  
 >*Temporary location where we put our copy when we think it's ready but must be reviewed first*
-## Checkout	
+### Checkout	
 >*Bring the content of a Repository into our Working Directory*  
-## Add			
+### Add			
 >*Bring the content of our Working Directory into the Staging Index*  
-## Commit		
+### Commit		
 >*Bring the content of the Staging Index into the Repository*
-## Branch
+### Branch
 >*Copy of the project in which we can make operations without affecting the same files in other branches*
-## HEAD POINTER
+### HEAD POINTER
 >*Abstract pointer that points to the top of the current branch in the repository (by default is the last committed state). It is going to be the parent of the next commit*
 				
-# GIT CONFIGURATION
+## GIT CONFIGURATION
 **Configure user global settings (name)**
 >*git config --global user.name "my_name"*
 
@@ -43,12 +44,12 @@
 
 N.B.: all the configurations are saved in the **.gitconfig** file in the folder where we configured the user  
 
-# INITIALIZE REPOSITORY
+## INITIALIZE REPOSITORY
 **Ask git to track every change on the project. It creates .git folder**
 >*git init*  
 N.B.: to stop tracking the project, delete **.git** folder
 
-# GITIGNORE
+## GITIGNORE
 .gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder. For instance,
 if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
 files. In .gitignore we can write
@@ -56,26 +57,26 @@ files. In .gitignore we can write
 \*.out
 \*.exe
 
-# THE COMMIT CHAIN
+## THE COMMIT CHAIN
 The commit package is similar to a node of a linked list. In this linked list, a node is added in head and so the head points 
 to the latest commit done and every node points to the whatever the head was when it got inserted.
 
-# ADD FILES
+## ADD FILES
 **Put every change detected (and not ignored) by git into the Staging Index**
 >*git add .*
 
 **Put the changes made on file.txt onto the Stanging Index**
 >*git add file.txt*
 
-# DELETE FILES
+## DELETE FILES
 **Delete file from working directory**
 >*git rm file*
 
-# RENAME FILES
+## RENAME FILES
 **Rename file to newFile and put it on the Staging Index**
 >*git mv file newFile*
 
-# COMMIT
+## COMMIT
 For the commit operation, git creates a package with changes(aka data), description of the commit and unique checksum(generated starting from data and description) and sends it to the repository.
 
 **Send all the data contained in the staging index to the repository**
@@ -84,7 +85,7 @@ For the commit operation, git creates a package with changes(aka data), descript
 **Sign-off the commit**
 >*git commit -m "description" -s*
 
-# STATUS AND REPO INFORMATIONS
+## STATUS AND REPO INFORMATIONS
 **Show all the commits done so far**
 >*git log*
 
