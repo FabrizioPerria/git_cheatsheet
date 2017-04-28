@@ -48,6 +48,14 @@ N.B.: all the configurations are saved in the **.gitconfig** file in the folder 
 >*git init*  
 N.B.: to stop tracking the project, delete **.git** folder
 
+# GITIGNORE
+.gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder. For instance,
+if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
+files. In .gitignore we can write
+\*.o
+\*.out
+\*.exe
+
 # THE COMMIT CHAIN
 The commit package is similar to a node of a linked list. In this linked list, a node is added in head and so the head points 
 to the latest commit done and every node points to the whatever the head was when it got inserted.
@@ -113,64 +121,78 @@ For the commit operation, git creates a package with changes(aka data), descript
 * untracked files (files in the working directory to be added/removed to the staging index)
 >*git status*
 
-ROLLBACK AN UNSTAGED FILE (UNDO-like)
-git checkout -- file		replace the messed up file of the wroking directory with the last committed version of that file
+## ROLLBACK AN UNSTAGED FILE (UNDO-like)
+**Replace the messed up file of the Working Directory with the last committed version of that file**
+>*git checkout -- file*
 
-UNSTAGE FILES
-used if we send a file to the staging area and we modify it before commit:
-git add file
-echo "change" >> file
+## UNSTAGE FILES
+used if we send a file to the staging area and we modify it before commit:  
+>git add file  
+>echo "change" >> file  
 
-now we can:
-git add file				overwrites file in the staging area
-OR
-git reset HEAD file			unstage
+At this point, we have 2 options:
+>* git add file
+>* git reset HEAD file
 
-MODIFY A COMMITTED FILE WITHOUT A NEW COMMIT
-possible only for the very last commit!!! Don't use it if possible....
-git commit --amend "description"
+## MODIFY A COMMITTED FILE WITHOUT A NEW COMMIT
+**This is possible only for the very last commit!!!** 
+>*git commit --amend "description"*
 
-REVERT TO AN OLD COMMIT
-Receive a copy of an old version of the branch (is not going to delete the newer ones!is just a copy)
-git checkout id_of_the_commit				checkout the whole commit
-git checkout id_of_the_commit -- file		checkout only the file specified at that point in time
-git checkout -b my_branch					create and switch to my_branch
+Don't use it if possible....
 
-DIFF
-git feature to check differences between 2 versions of a file
+## REVERT TO AN OLD COMMIT
+Receive a copy of an old version of the branch (is not going to delete the newer ones!is just a copy)  
 
-git diff file
+**Checkout the whole commit**
+>*git checkout id_of_the_commit*
 
-if we stage new/file first....git add file
-git diff --staged is going to tell us which changes have been made to file
+**Checkout only the file specified at that point in time**
+>*git checkout id_of_the_commit -- file*
 
-RESET
+## FILE COMPARISON
+
+**Check differences of a file from the last stable version (staged) to the current version (unstaged)**
+>*git diff file*
+
+**Check differences of all the files in the Staging Index**
+>*git diff --staged*
+
+## RESET
 There are 3 types of reset in git:
-	git reset --soft id_commit 		moves the HEAD to the specified commit(undo a commit)
-	git reset --mixed id_commit		moves the HEAD and the staging index to whatever they were in the specified commit(undo a staging
-	git reset --hard id_commit		completely reverts the commit (DANGEROUS...undo a change in the files)
+* SOFT - moves the HEAD to the specified commit (undo a commit)
+	>*git reset --soft id_commit*
+* MIXED - moves the HEAD and the staging index to whatever they were in the specified commit (undo a staging)
+	>*git reset --mixed id_commit*
+* HARD - completely reverts the commit (DANGEROUS...undo a change in the files)
+	>*git reset --hard id_commit*
+  
+## BRANCHES
+**Show all the branches created(\* is on the current branch)**
+>*git branch*
 
+**Create a branch called my_branch**
+>*git branch my_branch*
 
-BRANCHES
-git branch				show all the branches created(* is on the current branch)
-git branch my_branch	create a branch called my_branch
+**Create and switch to my_branch**
+>*git checkout -b my_branch*
 
-CREATE A PATCH
-git format-patch original_branch..new_branch
-git format-patch -o patches/ -3		create a patch for each one of the last 3 commits and save 
-									them in patches folder
+## CREATE A PATCH
+**Create a patch with all the differences between 2 braches**
+>*git format-patch original_branch..new_branch*
 
-git format-patch --subject-prefix="prefix]["  add prefix in the subject of the email-format patch
+**Create a patch for each one of the last 3 commits**
+>*git format-patch -3*
 
-SEND EMAIL
-script/get_maintainer.pl my_patch.patch
+**Create a patch and save it in patches folder**
+>*git format-patch -o patches/*
 
-git send-email --to x@y.z --cc a@b.c --chain-reply-to --in-reply-to=last_message_id patches/*
+**Create a patch and add prefix in the subject of the email-format patch**
+>*git format-patch --subject-prefix="prefix]["*
 
-GITIGNORE
-.gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder. For instance,
-if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
-files. In .gitignore we can write
-*.o
-*.out
-*.exe
+## SEND EMAILS WITH GIT
+Useful feature to send patches through email (very useful for linux kernel patches).  
+To send emails for the linux kernel, first get the list of email addresses of people and mailing lists interested in the patch
+>*script/get_maintainer.pl my_patch.patch*  
+Then, use that list (1 address for each --to) and send the email
+>*git send-email --to a@b.c --to d@e.f --cc x@y.z --chain-reply-to --in-reply-to=last_message_id patches/\**
+
