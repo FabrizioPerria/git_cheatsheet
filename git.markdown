@@ -1,76 +1,117 @@
-CONFIGURE GIT
-git config --global	user.name "my_name"						configure user global settings (name)
-git config --global	user.email "user@provider.com"			configure user global settings (mail)
-git config --global core.editor "vim"						configure default text editor
-git config --global color.ui true							enable colors in git terminal
-git config --global sendemail.smtpuser x@y.z
-git config --global sendemail.smtpserver smtp.googlemail.com (for gmail)
-git config --global sendemail.smtpencryption tls
-git config --global sendemail.smtpserverport 587
+# TERMINOLOGY
+## Repository                
+>*Remote (or local) location of the project; here the history of our project is stored. It can be seen as the good copy*    
+## Working Directory 	
+>*Location where we are allowed to make changes, experiments, weirdness; can be seen as the dirty copy*  
+## Staging Index  
+>*Temporary location where we put our copy when we think it's ready but must be reviewed first*
+## Checkout	
+>*Bring the content of a Repository into our Working Directory*  
+## Add			
+>*Bring the content of our Working Directory into the Staging Index*  
+## Commit		
+>*Bring the content of the Staging Index into the Repository*
+## Branch
+>*Copy of the project in which we can make operations without affecting the same files in other branches*
+## HEAD POINTER
+>*Abstract pointer that points to the top of the current branch in the repository (by default is the last committed state). It is going to be the parent of the next commit*
+				
+# GIT CONFIGURATION
+**Configure user global settings (name)**
+>*git config --global user.name "my_name"*
 
-all the configurations are saved in the .gitconfig file in the folder where we configured the user
+**Configure user global settings (mail)**
+>*git config --global user.email "user@provider.com"*
 
-PROJECT
-mkdir project
-cd project
+**Configure default text editor**
+>*git config --global core.editor "vim"*
 
-INITIALIZE REPOSITORY
-git init				telling git to track every change on the project. It creates .git folder
+**Enable colors in git terminal**
+>*git config --global color.ui true*
 
-to stop tracking the project, delete .git folder
+**Set my email address**
+>*git config --global sendemail.smtpuser x@y.z*
 
-TERMINOLOGY
-repository			remote (or local) location of the project....good copy 
-working directory 	location where we are allowed to make changes, experiments, weirdness....junkie copy
-staging index 		temporary location where we put our copy when we think it's ready but must be reviewed first
+**SMTP server for gmail**
+>*git config --global sendemail.smtpserver smtp.googlemail.com**
 
-check-out	bring the content of a repository into a working directory
-add			bring the content of a working directory into a staging index
-commit		bring the content of a staging index into a repository
+**SMTP encryption for gmail**
+>*git config --global sendemail.smtpencryption tls**
 
-branch		pointer to a commit
+**SMTP server port for gmail**
+>*git config --global sendemail.smtpserverport 587*
 
-HEAD POINTER	HEAD is a pointer that points to the top of the current branch in the repository (is the last checked out state). 
-				It is going to be the parent of the next commit
+N.B.: all the configurations are saved in the **.gitconfig** file in the folder where we configured the user  
 
-THE COMMIT CHAIN
+# INITIALIZE REPOSITORY
+**Ask git to track every change on the project. It creates .git folder**
+>*git init*  
+N.B.: to stop tracking the project, delete **.git** folder
+
+# THE COMMIT CHAIN
 The commit package is similar to a node of a linked list. In this linked list, a node is added in head and so the head points 
-to the latest commit done and every node points to the older head when it got inserted
+to the latest commit done and every node points to the whatever the head was when it got inserted.
 
-ADD FILES
-git add . 							put everything in this folder into the staging index
-git add file.txt					send only file.txt to the stanging index
+# ADD FILES
+**Put every change detected (and not ignored) by git into the Staging Index**
+>*git add .*
 
-DELETE FILES FROM GIT
-git rm file					delete file from working directory
+**Put the changes made on file.txt onto the Stanging Index**
+>*git add file.txt*
 
-RENAME FILES FROM GIT
-git mv file newFile			rename file to newFile and put it on the staging area
+# DELETE FILES
+**Delete file from working directory**
+>*git rm file*
 
-COMMIT
-Package of data and description (from where git creates a unique checksum) sent to the main repository.
+# RENAME FILES
+**Rename file to newFile and put it on the Staging Index**
+>*git mv file newFile*
 
-git commit -m "description"			send all the data contained in the staging index to the repository
-git commit -m "description" -s		sign-off the commit
+# COMMIT
+For the commit operation, git creates a package with changes(aka data), description of the commit and unique checksum(generated starting from data and description) and sends it to the repository.
 
-STATUS AND REPO INFORMATIONS
-git log								show all the commits done so far
-git log --oneline					show only the ID and the message for every commit done so far
-git log --oneline --abbrev-commit   show only part of the commit ID
-git log --oneline -3				show only the last 3 commits
-git log --since="2017-05-12"		show all the commits done after May 12th 2017
-git log --since="2 weeks ago"		show all the commits of the last 2 weeks
-git log --until="2017-05-12"		show all the commits done until May 12th 2017
-git log --author="Jack"				show all the commits done by Jack
+**Send all the data contained in the staging index to the repository**
+>*git commit -m "description"*
 
-git log --oneline --graph --all --decorate		show the tree with all the branches
+**Sign-off the commit**
+>*git commit -m "description" -s*
 
-cat .git/refs/heads/master			show the checksum of the commit pointed by HEAD in the master branch
+# STATUS AND REPO INFORMATIONS
+**Show all the commits done so far**
+>*git log*
 
-git status 							returns status of the repository:
-										current branch
-										uncommitted files (stored in the staging index)
-										untracked files (files in the working directory to be added/removed to the staging index)
+**Show only the ID and the message for every commit done so far**
+>*git log --oneline*
+
+**Show only part of the commit ID**
+>*git log --oneline --abbrev-commit*
+
+**Show only the last 3 commits**
+>*git log -3*
+
+**Show all the commits done after May 12th 2017**
+>*git log --since="2017-05-12"*
+
+**Show all the commits of the last 2 weeks**
+>*git log --since="2 weeks ago"*
+
+**Show all the commits done until May 12th 2017**
+>*git log --until="2017-05-12"*
+
+**Show all the commits done by Jack**
+>*git log --author="Jack"*
+
+**Show the tree with all the branches**
+>*git log --oneline --graph --all --decorate*
+
+**Show the checksum of the commit pointed by HEAD in the master branch**
+>*cat .git/refs/heads/master*
+
+**Show the status of the repository in terms of:**
+* current branch
+* uncommitted files (stored in the staging index)
+* untracked files (files in the working directory to be added/removed to the staging index)
+>*git status*
 
 ROLLBACK AN UNSTAGED FILE (UNDO-like)
 git checkout -- file		replace the messed up file of the wroking directory with the last committed version of that file
