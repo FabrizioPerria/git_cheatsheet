@@ -194,6 +194,7 @@ There are 3 types of reset in git:
 Useful feature to send patches through email (very useful for linux kernel patches).  
 To send emails for the linux kernel, first get the list of email addresses of people and mailing lists interested in the patch
 >*script/get_maintainer.pl my_patch.patch*  
+
 Then, use that list (1 address for each --to) and send the email
 >*git send-email --to a@b.c --to d@e.f --cc x@y.z --chain-reply-to --in-reply-to=last_message_id patches/\**
 
