@@ -43,9 +43,15 @@
 >*git config --global sendemail.smtpserverport 587*
 
 **Alias definition**
+<<<<<<< HEAD
 >*git config --global alias.<name_of_alias> "command"
 
 **View the branches and commits as a tree (after the configuration, just use git tree)**
+=======
+>*git config --global alias.<name_of_alias> "<command>"
+
+**View the branches and commits as a tree (after the configuration, just use git tree**
+>>>>>>> eccdf3f09b07732b298640335a26005e7ac61a1d
 >*git config --global alias.tree "log --oneline --decorate --all --graph"
 
 
