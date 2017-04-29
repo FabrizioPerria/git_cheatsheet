@@ -45,7 +45,7 @@
 **Alias definition**
 >*git config --global alias.<name_of_alias> "<command>"
 
-**View the branches and commits as a tree (after the configuration, just use git tree**
+**View the branches and commits as a tree (after the configuration, just use git tree)**
 >*git config --global alias.tree "log --oneline --decorate --all --graph"
 
 
