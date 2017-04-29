@@ -42,6 +42,13 @@
 **SMTP server port for gmail**
 >*git config --global sendemail.smtpserverport 587*
 
+**Alias definition**
+>*git config --global alias.<name_of_alias> "<command>"
+
+**View the branches and commits as a tree (after the configuration, just use git tree**
+>*git config --global alias.tree "log --oneline --decorate --all --graph"
+
+
 N.B.: all the configurations are saved in the **.gitconfig** file in the folder where we configured the user  
 
 ## INITIALIZE REPOSITORY
