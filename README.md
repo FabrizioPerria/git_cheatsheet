@@ -11,9 +11,9 @@
 ### Add			
 >*Bring the content of our Working Directory into the Staging Index*  
 ### Commit		
->*Bring the content of the Staging Index into the Repository*
+>*Bring a snapshot of the current project from the Staging Index into the Repository. It's a lightweight copy and paste where we save only the changes between the previous commit and the current state.*
 ### Branch
->*Copy of the project in which we can make operations without affecting the same files in other branches*
+>*Copy of the project in which we can make operations without affecting the same files in other branches. It's nothing more than a pointer to a commit.*
 ### HEAD POINTER
 >*Abstract pointer that points to the top of the current branch in the repository (by default is the last committed state). It is going to be the parent of the next commit*
 				
