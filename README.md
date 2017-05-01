@@ -15,8 +15,26 @@
 ### Branch
 >*Copy of the project in which we can make operations without affecting the same files in other branches. It's nothing more than a pointer to a commit.*
 ### HEAD POINTER
->*Abstract pointer that points to the top of the current branch in the repository (by default is the last committed state). It is going to be the parent of the next commit*
-				
+Abstract pointer that points to the top of the current branch in the repository (by default is the last committed state). It is going to be the parent of the next commit.  
+
+We can detach the HEAD from the current branch in order to move along the whole set of commits done on the project.  
+>*git checkout id_commit*  
+>*The id_commit is the hash of the commit; it can be found using git log*
+
+Now, the HEAD doesn't point to the branch anymore and every change is not going to affect the branch.  
+
+As HEAD is really just a pointer, we can use it to browse the tree (backwardsi because we only know its parent) as we need using relative references.  
+**Move HEAD to the first parent of master branch)**
+>*git checkout master^*
+
+**Move HEAD to its parent**
+>*git checkout HEAD^  
+**OR**  
+git checkout HEAD~1*  
+
+**Move HEAD to its N-th parent**
+>*git checkout HEAD~N*
+
 ## GIT CONFIGURATION
 **Configure user global settings (name)**
 >*git config --global user.name "my_name"*
@@ -34,33 +52,35 @@
 >*git config --global sendemail.smtpuser x@y.z*
 
 **SMTP server for gmail**
->*git config --global sendemail.smtpserver smtp.googlemail.com**
+>*git config --global sendemail.smtpserver smtp.googlemail.com*
 
 **SMTP encryption for gmail**
->*git config --global sendemail.smtpencryption tls**
+>*git config --global sendemail.smtpencryption tls*
 
 **SMTP server port for gmail**
 >*git config --global sendemail.smtpserverport 587*
 
 **Alias definition**
->*git config --global alias.<name_of_alias> "command"
+>*git config --global alias.<name_of_alias> "command"*
 
 **View the branches and commits as a tree (after the configuration, just use git tree**
->*git config --global alias.tree "log --oneline --decorate --all --graph"
+>*git config --global alias.tree "log --oneline --decorate --all --graph"*
 
 N.B.: all the configurations are saved in the **.gitconfig** file in the folder where we configured the user  
 
 ## INITIALIZE REPOSITORY
 **Ask git to track every change on the project. It creates .git folder**
 >*git init*  
+
 N.B.: to stop tracking the project, delete **.git** folder
 
 ## GITIGNORE
-.gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder. For instance,
-if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
-files. In .gitignore we can write
-\*.o
-\*.out
+.gitignore is a file that we can create and where we specify (through regex) what git should ignore in the folder.  
+For instance, if we write some code and we compile it, we may want to keep track of the source files only an not the executable or the object
+files.  
+In .gitignore we can write  
+\*.o  
+\*.out  
 \*.exe
 
 ## THE COMMIT CHAIN
@@ -123,9 +143,10 @@ For the commit operation, git creates a package with changes(aka data), descript
 >*cat .git/refs/heads/master*
 
 **Show the status of the repository in terms of:**
-* current branch
-* uncommitted files (stored in the staging index)
-* untracked files (files in the working directory to be added/removed to the staging index)
+>* current branch
+>* uncommitted files (stored in the staging index)
+>* untracked files (files in the working directory to be added/removed to the staging index)  
+
 >*git status*
 
 ## ROLLBACK AN UNSTAGED FILE (UNDO-like)
@@ -157,7 +178,6 @@ Receive a copy of an old version of the branch (is not going to delete the newer
 >*git checkout id_of_the_commit -- file*
 
 ## FILE COMPARISON
-
 **Check differences of a file from the last stable version (staged) to the current version (unstaged)**
 >*git diff file*
 
@@ -165,14 +185,14 @@ Receive a copy of an old version of the branch (is not going to delete the newer
 >*git diff --staged*
 
 ## RESET
-There are 3 types of reset in git:
-* SOFT - moves the HEAD to the specified commit (undo a commit)
+There are 3 types of reset in git:  
+>* SOFT - moves the HEAD to the specified commit (undo a commit)  
 	>*git reset --soft id_commit*
-* MIXED - moves the HEAD and the staging index to whatever they were in the specified commit (undo a staging)
+>* MIXED - moves the HEAD and the staging index to whatever they were in the specified commit (undo a staging)  
 	>*git reset --mixed id_commit*
-* HARD - completely reverts the commit (DANGEROUS...undo a change in the files)
+>* HARD - completely reverts the commit (DANGEROUS...undo a change in the files)  
 	>*git reset --hard id_commit*
-  
+
 ## BRANCHES
 **Show all the branches created(\* is on the current branch)**
 >*git branch*
@@ -182,6 +202,33 @@ There are 3 types of reset in git:
 
 **Create and switch to my_branch**
 >*git checkout -b my_branch*
+
+**Reassign the branch master to a specific commit**
+>*git branch -f master HEAD~3*
+
+## MERGE
+Create a commit with 2 unique parents which consists of the work done in both of them (and their parents as well)  
+**Merge the branch *my_branch* with the current checked-out branch**  
+**It will create a new commit for the current branch and this commit will have the state of the current branch mixed with the state of *my_branch***  
+>*git merge my_branch*
+
+**At this point we need to align *my_branch* with the current branch(i.e. master)**  
+>*git checkout my_branch*
+>*git merge master*
+
+## REBASE
+Rebase takes a set of commits and copies them in a different commit.  
+The rebasing allows to have a cleaner sequence of commits where parallel work can be recorded as sequential work in our log.  
+Let's assume that i checked out *my_branch*  
+**Rebase *my_branch* in such a way that it looks like master is its parent**
+>*git rebase master*  
+
+N.B.: if we rebase a child from its parent, the parent will point to the child. For instance:
+>*git checkout master*  
+>*git rebase my_branch*  
+
+**Now master points to the same commit as my_branch**
+
 
 ## CREATE A PATCH
 **Create a patch with all the differences between 2 braches**
