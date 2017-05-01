@@ -143,9 +143,9 @@ For the commit operation, git creates a package with changes(aka data), descript
 >*cat .git/refs/heads/master*
 
 **Show the status of the repository in terms of:**
->* current branch
->* uncommitted files (stored in the staging index)
->* untracked files (files in the working directory to be added/removed to the staging index)  
+* current branch
+* uncommitted files (stored in the staging index)
+* untracked files (files in the working directory to be added/removed to the staging index)  
 
 >*git status*
 
@@ -186,11 +186,11 @@ Receive a copy of an old version of the branch (is not going to delete the newer
 
 ## RESET
 There are 3 types of reset in git:  
->* SOFT - moves the HEAD to the specified commit (undo a commit)  
+* SOFT - moves the HEAD to the specified commit (undo a commit)  
 	>*git reset --soft id_commit*
->* MIXED - moves the HEAD and the staging index to whatever they were in the specified commit (undo a staging)  
+* MIXED - moves the HEAD and the staging index to whatever they were in the specified commit (undo a staging)  
 	>*git reset --mixed id_commit*
->* HARD - completely reverts the commit (DANGEROUS...undo a change in the files)  
+* HARD - completely reverts the commit (DANGEROUS...undo a change in the files)  
 	>*git reset --hard id_commit*
 
 ## BRANCHES
@@ -229,6 +229,16 @@ N.B.: if we rebase a child from its parent, the parent will point to the child. 
 
 **Now master points to the same commit as my_branch**
 
+**Interactive rebasing. It opens a TUI with all the commits and we can:**  
+* reoreder commits  
+* omit commits  
+* combine commits    
+
+>*git rebase -i HEAD^* 
+
+## CHERRY-PICK
+Cherry-picking means take an existing commit (without its parents) and create a commit child with HEAD + only the changes of the commit itself.
+>*git cherry-pick commit_id*
 
 ## CREATE A PATCH
 **Create a patch with all the differences between 2 braches**
