@@ -217,6 +217,7 @@ There are 3 types of reset in git:
 
 ## FETCH
 **Download from origin repository and keeps the changes in the environment without applying them in the working directory.**  
+**That's very useful when you want to se what other people has been working on without affecting my local copy.**  
 >*git fetch*
 
 **Download from a specified remote repository (still the files in the working directory remain unchanged)**
