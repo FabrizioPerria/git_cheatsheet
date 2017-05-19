@@ -111,11 +111,17 @@ For the commit operation, git creates a package with changes(aka data), descript
 **Sign-off the commit**
 >*git commit -m "description" -s*
 
+**Add files and commit in one shot**  
+>*git commit -a*
+
 ## STATUS AND REPO INFORMATIONS
-**Show all the commits done so far**
+**Show all the commits done so far to master**
 >*git log*
 
-**Show only the ID and the message for every commit done so far**
+**Show all the commits done so far to a specified branch**
+>*git log my_branch*
+
+**Show only the ID and the message for every commit done so far to master**
 >*git log --oneline*
 
 **Show only part of the commit ID**
@@ -194,7 +200,7 @@ There are 3 types of reset in git:
 	>*git reset --hard id_commit*
 
 ## BRANCHES
-**Show all the branches created(\* is on the current branch)**
+**Show all the __local__ branches created(\* is on the current branch)**
 >*git branch*
 
 **Create a branch called my_branch**
@@ -206,6 +212,16 @@ There are 3 types of reset in git:
 **Reassign the branch master to a specific commit**
 >*git branch -f master HEAD~3*
 
+**Show all the branches (also remote and hidden branches)** 
+>*git branch -a*
+
+## FETCH
+**Download from origin repository and keeps the changes in the environment without applying them in the working directory.**  
+>*git fetch*
+
+**Download from a specified remote repository (still the files in the working directory remain unchanged)**
+>*git fetch my_remote_repo*
+
 ## MERGE
 Create a commit with 2 unique parents which consists of the work done in both of them (and their parents as well)  
 **Merge the branch *my_branch* with the current checked-out branch**  
@@ -215,6 +231,17 @@ Create a commit with 2 unique parents which consists of the work done in both of
 **At this point we need to align *my_branch* with the current branch(i.e. master)**  
 >*git checkout my_branch*
 >*git merge master*
+
+## REMOTE
+Manage remote repositories
+**Associate a remote repository to a name**
+>*git remote add origin user@machine:/path/to/source*
+
+**Show informations about the remote repository**
+>*git remote show origin*
+
+**Get updates from origin/master remote repository**
+>*git remote update*
 
 ## REBASE
 Rebase takes a set of commits and copies them in a different commit.  
